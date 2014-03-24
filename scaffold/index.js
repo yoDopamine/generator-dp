@@ -1,98 +1,99 @@
 'use strict';
 
 var path = require('path'),
-    yo = require('yeoman-generator');
+	yo = require('yeoman-generator');
 
 
 module.exports = yo.generators.Base.extend({
-    constructor: function(arg, options) {
-        yo.generators.Base.apply(this, arguments);
+	constructor: function(arg, options) {
+		yo.generators.Base.apply(this, arguments);
 
-        this.on('end', function() {
-            this.installDependencies({
-                skipInstall: options['skip-install']
-            });
-        });
+		this.on('end', function() {
+			this.installDependencies({
+				skipInstall: options['skip-install']
+			});
+		});
 
-        this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
-        this.bwr = JSON.parse(this.readFileAsString(path.join(__dirname, '/templates/bowerrc')));
-    },
+		// this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
+		// this.bwr = JSON.parse(this.readFileAsString(path.join(__dirname, '/templates/bowerrc')));
+	},
 
-    askFor: function() {
-        var cb = this.async();
+	askFor: function() {
+		var cb = this.async();
 
-        var prompts = [
-            {
-                name: 'projectName',
-                message: 'Project Name',
-                default: path.basename(process.cwd())
-            },
-            // {
-            //     name: 'lang',
-            //     message: 'Project Language',
-            //     default: 'en'
-            // }
-        ];
+		var prompts = [
+			{
+				name: 'projectName',
+				message: 'Project Name',
+				default: path.basename(process.cwd())
+			},
+			// {
+			//     name: 'lang',
+			//     message: 'Project Language',
+			//     default: 'en'
+			// }
+		];
 
-        this.prompt(prompts, function(props) {
-            for (var prop in props) {
-                if (props.hasOwnProperty(prop)) {
-                    this[prop] = props[prop];
-                }
-            }
+		this.prompt(prompts, function(props) {
+			for (var prop in props) {
+				if (props.hasOwnProperty(prop)) {
+					this[prop] = props[prop];
+				}
+			}
 
-            cb();
-        }.bind(this));
+			cb();
+		}.bind(this));
 
-    },
+	},
 
-    scaffold: function() {
-        /*
-         * Grab Dopamine base project from GitHub
-         */
-        // this.directory('src/', 'src/');
+	scaffold: function() {
+		var cb = this.async();
+		this.path = ''; // project root
 
-        console.log ('Checkout Dopamine base..');
-        this.remote('yoDopamine', 'Dopamine', function(err, remote) {
-            if (err) {
-                return cb(err);
-            }
+		/*
+		 * Grab Dopamine base project from GitHub
+		 */
+		// this.directory('src/', 'src/');
 
-            remote.directory('src/', path.join(this.path, 'src/'));
+		console.log ('Checkout Dopamine base..');
+		this.remote('yoDopamine', 'Dopamine', function(err, remote) {
+			if (err) {
+				return cb(err);
+			}
 
-            var files = this.expandFiles(['*.*', '!dopamine.json'], {
-                cwd: remote.cachePath
-            });
+			remote.directory('src/', path.join(this.path, 'src/'));
 
-            files.map(function(filename) {
-                remote.copy(filename, path.join(this.path, filename));
-            }.bind(this));
+			var files = this.expandFiles('**', { cwd: remote.cachePath, dot: true });
 
-            cb();
+			files.map(function(filename) {
+				remote.copy(filename, path.join(this.path, filename));
+			}.bind(this));
 
-        }.bind(this));
+			cb();
+
+		}.bind(this));
 
 
-        /*
-         * Create folder for webfonts
-         */
-        // this.mkdir('fonts'); // Refactored, via github
+		/*
+		 * Create folder for webfonts
+		 */
+		// this.mkdir('fonts'); // Refactored, via github
 
-        /*
-         * Create folder for sprites and images
-         */
-        // this.mkdir('src/images/sprites/2x'); // Refactored, via github
+		/*
+		 * Create folder for sprites and images
+		 */
+		// this.mkdir('src/images/sprites/2x'); // Refactored, via github
 
-        // this.copy('_gitignore', '.gitignore'); // Refactored, via github
-        // this.copy('editorconfig', '.editorconfig'); // Refactored, via github
-        // this.copy('jshintrc', '.jshintrc'); // Refactored, via github
-        // this.copy('bowerrc', '.bowerrc'); // Refactored, via github
+		// this.copy('_gitignore', '.gitignore'); // Refactored, via github
+		// this.copy('editorconfig', '.editorconfig'); // Refactored, via github
+		// this.copy('jshintrc', '.jshintrc'); // Refactored, via github
+		// this.copy('bowerrc', '.bowerrc'); // Refactored, via github
 
-        this.template('dopamine.json', 'dopamine.json');
-        // this.template('_bower.json', 'bower.json'); // Refactored, via github
-        // this.template('_package.json', 'package.json'); // Refactored, via github
-        // this.template('_gulpfile.js', 'gulpfile.js'); // Refactored, via github
-        this.template('_humans.txt', 'humans.txt');
+		this.template('dopamine.json', 'dopamine.json');
+		// this.template('_bower.json', 'bower.json'); // Refactored, via github
+		// this.template('_package.json', 'package.json'); // Refactored, via github
+		// this.template('_gulpfile.js', 'gulpfile.js'); // Refactored, via github
+		this.template('_humans.txt', 'humans.txt');
 
-    }
+	}
 });

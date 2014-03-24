@@ -13,3 +13,11 @@ results
 
 npm-debug.log
 node_modules
+*.DS_Store
+.idea/
+*.sublime-*
+node_modules/
+dist/
+dist.zip
+regression/
+vendor/

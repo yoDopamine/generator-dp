@@ -2,6 +2,7 @@ generator-dp
 ============
 
 Generator app for Dopamine
+
 Demonstration: https://vimeo.com/album/2797322
 
 #Install

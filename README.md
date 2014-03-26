@@ -2,6 +2,7 @@ generator-dp
 ============
 
 Generator app for Dopamine
+Demonstration: https://vimeo.com/album/2797322
 
 #Install
 
@@ -16,14 +17,13 @@ Generator app for Dopamine
 
 `yo dp:install` then select a component to install
 
-## Available extensions
+Currently available extensions:
 
-### Inbuilt
+ - Stylus
+ - Sass
+
+Inbuilt:
 
  - Jade
  - Coffee
 
-### Installable
-
- - Stylus
- - Sass

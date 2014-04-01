@@ -109,7 +109,7 @@ module.exports = yo.generators.Base.extend({
         var _sourceFile = this.behaviour+extList[this.type];
 
         var _targetBase = 'src/'+this.type+'/'
-        var _targetFile = this.behaviour+'s/'+prefixList[this.behaviour]+this.name+extList[this.type];
+        var _targetFile = this.behaviour+'/'+prefixList[this.behaviour]+this.name//+extList[this.type];
 
         this.log.info(_sourceBase+_sourceFile, _targetBase+_targetFile);
         this.template(_sourceBase+_sourceFile, _targetBase+_targetFile);

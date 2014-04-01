@@ -117,7 +117,7 @@ module.exports = yo.generators.Base.extend({
 
         if (this.type == 'stylus' || this.type == 'scss'){
             var _reference = [
-                "@import \""+this.behaviour+'/'+prefixList[this.behaviour]+this.name//+extList[this.type]+"\"",
+                "@import \""+this.behaviour+'/'+prefixList[this.behaviour]+this.name+"\"",
                 ""+referenceMarkers[this.behaviour]
             ];
 

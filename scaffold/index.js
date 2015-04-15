@@ -53,15 +53,14 @@ module.exports = yo.generators.Base.extend({
 		/*
 		 * Grab Dopamine base project from GitHub
 		 */
-		// this.directory('src/', 'src/');
-
 		console.log ('Checkout Dopamine base..');
-		this.remote('yoDopamine', 'Dopamine', function(err, remote) {
+		this.remote('zsitro', 'webpack-multipage-website-boilerplate', function(err, remote) {
 			if (err) {
 				return cb(err);
 			}
 
 			remote.directory('src/', path.join(this.path, 'src/'));
+			remote.directory('dist/', path.join(this.path, 'dist/'));
 
 			var files = this.expandFiles('**', { cwd: remote.cachePath, dot: true });
 
@@ -73,6 +72,12 @@ module.exports = yo.generators.Base.extend({
 
 		}.bind(this));
 
+		this.log.info('Renaming project in gulpfile to: '+this.projectName);
+		var _gulpfilePath = 'gulpfile.js';
+		var _gulpFileContent = this.readFileAsString(_gulpfilePath);
+			_gulpFileContent = _gulpFileContent
+				.replace('/__multipageBoilerplate__/g', this.projectName);
+			this.write(_gulpfilePath, _gulpFileContent);
 
 		/*
 		 * Create folder for webfonts
@@ -83,16 +88,7 @@ module.exports = yo.generators.Base.extend({
 		 * Create folder for sprites and images
 		 */
 		// this.mkdir('src/images/sprites/2x'); // Refactored, via github
-
-		// this.copy('_gitignore', '.gitignore'); // Refactored, via github
-		// this.copy('editorconfig', '.editorconfig'); // Refactored, via github
-		// this.copy('jshintrc', '.jshintrc'); // Refactored, via github
-		// this.copy('bowerrc', '.bowerrc'); // Refactored, via github
-
 		this.template('dopamine.json', 'dopamine.json');
-		// this.template('_bower.json', 'bower.json'); // Refactored, via github
-		// this.template('_package.json', 'package.json'); // Refactored, via github
-		// this.template('_gulpfile.js', 'gulpfile.js'); // Refactored, via github
 		this.template('_humans.txt', 'humans.txt');
 
 	}

@@ -1,3 +1,4 @@
 {
-	'cssPreprocessor': 'stylus'
+	"name": "<%= projectName %>"
+	"cssPreprocessor": "scss"
 }

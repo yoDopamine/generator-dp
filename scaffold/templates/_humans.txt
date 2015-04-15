@@ -21,7 +21,7 @@
 	Website:
 	From:
 
-/* SITE */
+/* SITE <%= projectName %> */
 	Created: <%= (new Date).toISOString().split('T')[0] %>
 	Languages: English
 	URL:

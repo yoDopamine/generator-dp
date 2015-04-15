@@ -1,6 +1,6 @@
 {
   "name": "generator-dp",
-  "version": "0.0.1",
+  "version": "2.0.1",
   "description": "Sitebuild scaffolding with gulp and yeo",
   "keywords": [
     "yeoman-generator"
@@ -36,7 +36,7 @@
   ],
   "readme": "",
   "readmeFilename": "README.md",
-  "_id": "generator-dp@0.0.1",
+  "_id": "generator-dp@2.0.1",
   "dist": {
   }
 
